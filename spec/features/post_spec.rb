@@ -13,6 +13,8 @@ describe 'posts' do
   end
   describe 'creation' do
     before do
+      @user = create(:user)
+      login_as @user
       visit new_post_path
     end
     it 'can display new post form' do
@@ -24,6 +26,14 @@ describe 'posts' do
       click_on 'Save'
 
       expect(page).to have_content('Some rationale')
+    end
+    it 'is associated to logged user' do
+      fill_in "post[date]", with: Date.today
+      fill_in "post[rationale]", with: "Some rationale"
+      click_on 'Save'
+
+      expect(Post.last.user).to eq(@user)
+
     end
   end
 end
