@@ -1,20 +1,31 @@
 require 'rails_helper'
 
 describe 'posts' do
+  before do
+    @user = create(:user)
+    login_as @user
+  end
   describe 'index' do
-    it 'can be reached succesfully' do
+    before do
       visit posts_path
+    end
+    it 'can be reached succesfully' do
       expect(page.status_code).to eq(200)
     end
     it 'has a title of Post' do
-      visit posts_path
       expect(page).to have_content("Posts")
+    end
+
+    it 'has list of posts' do
+      post1 = create(:post, rationale: "Post1", user_id: @user.id)
+      post2 = create(:post, rationale: "Post2", user_id: @user.id)
+      visit posts_path
+      expect(page).to have_content("Post1")
+      expect(page).to have_content("Post2")
     end
   end
   describe 'creation' do
     before do
-      @user = create(:user)
-      login_as @user
       visit new_post_path
     end
     it 'can display new post form' do
