@@ -1,0 +1,9 @@
+%tr
+  %td
+    = post.id
+  %td
+    = post.date
+  %td
+    = post.user.email
+  %td
+    = truncate(post.rationale, length: 10)
