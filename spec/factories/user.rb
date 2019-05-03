@@ -11,7 +11,7 @@ FactoryBot.define do
     last_name { "Ogorek" }
   end
 
-  factory :user, class: "User" do
+  factory :second_user, class: "User" do
     email
     password { "asdfjkl;" }
     first_name { "Second" }

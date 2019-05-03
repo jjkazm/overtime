@@ -44,7 +44,23 @@ describe 'posts' do
       click_on 'Save'
 
       expect(Post.last.user).to eq(@user)
+    end
+  end
 
+  describe 'edit' do
+    before do
+      post = create(:post)
+      visit posts_path
+      click_link("edit_#{post.id}")
+    end
+    it 'can be reached by clicking edit button' do
+      expect(page.status_code).to eq(200)
+    end
+    it 'can be edited' do
+      fill_in "post[rationale]", with: "Edited rationale"
+      click_on 'Save'
+
+      expect(page).to have_content("Edited rationale")
     end
   end
 end

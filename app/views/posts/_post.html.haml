@@ -7,3 +7,5 @@
     = post.user.email
   %td
     = truncate(post.rationale, length: 10)
+  %td
+    = link_to "Edit", edit_post_path(post), id: "edit_#{post.id}"
